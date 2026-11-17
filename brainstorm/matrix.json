@@ -1,0 +1,1591 @@
+{
+  "decision": null,
+  "limitations": [
+    "The additive model permits compensation across criteria; keep hard gates outside the score.",
+    "Input intervals are combined as simultaneous criterion-wise bounds and are not calibrated probability intervals.",
+    "Weight sensitivity changes one weight at a time and does not cover all plausible weights, criterion dependence, scale uncertainty, or model-form uncertainty.",
+    "Ratings and weights are judgments, not empirical measurements of scientific truth."
+  ],
+  "method": {
+    "criteria": [
+      {
+        "description": "Frequency and severity of the pain for a broad developer audience",
+        "direction": "higher",
+        "maximum": 5.0,
+        "minimum": 1.0,
+        "name": "unmet_need"
+      },
+      {
+        "description": "Defensible separation from prior art located in the bounded landscape search",
+        "direction": "higher",
+        "maximum": 5.0,
+        "minimum": 1.0,
+        "name": "differentiation"
+      },
+      {
+        "description": "Minutes from install to a first result a developer would act on",
+        "direction": "higher",
+        "maximum": 5.0,
+        "minimum": 1.0,
+        "name": "time_to_value"
+      },
+      {
+        "description": "Correctly buildable in one sandbox with the Python standard library",
+        "direction": "higher",
+        "maximum": 5.0,
+        "minimum": 1.0,
+        "name": "build_feasibility"
+      },
+      {
+        "description": "The tool can state its own evidence boundary without overclaiming proof",
+        "direction": "higher",
+        "maximum": 5.0,
+        "minimum": 1.0,
+        "name": "evidence_integrity"
+      },
+      {
+        "description": "Shareable output, runtime neutrality, README-as-product, trend alignment",
+        "direction": "higher",
+        "maximum": 5.0,
+        "minimum": 1.0,
+        "name": "distribution_leverage"
+      },
+      {
+        "description": "Ongoing churn from fast-moving vendor APIs, formats, or adversarial rule lists",
+        "direction": "lower",
+        "maximum": 5.0,
+        "minimum": 1.0,
+        "name": "maintenance_burden"
+      }
+    ],
+    "formula": "score_i = 100 * sum_j(normalized_weight_j * direction_normalized_rating_ij)",
+    "higher_normalization": "(x - minimum) / (maximum - minimum)",
+    "lower_normalization": "(maximum - x) / (maximum - minimum)",
+    "name": "weighted-additive-normalized-matrix",
+    "normalized_weights": {
+      "build_feasibility": 0.15,
+      "differentiation": 0.15,
+      "distribution_leverage": 0.1,
+      "evidence_integrity": 0.15,
+      "maintenance_burden": 0.1,
+      "time_to_value": 0.15,
+      "unmet_need": 0.2
+    },
+    "supplied_weights": {
+      "build_feasibility": 3.0,
+      "differentiation": 3.0,
+      "distribution_leverage": 2.0,
+      "evidence_integrity": 3.0,
+      "maintenance_burden": 2.0,
+      "time_to_value": 3.0,
+      "unmet_need": 4.0
+    },
+    "tie_rule": "Scores are ordered descending for presentation; exact ties are broken by lexical idea_id. Rank is not a decision.",
+    "weight_sensitivity": {
+      "delta": 0.15,
+      "scenario_count": 14,
+      "scenarios": [
+        "unmet_need:minus",
+        "unmet_need:plus",
+        "differentiation:minus",
+        "differentiation:plus",
+        "time_to_value:minus",
+        "time_to_value:plus",
+        "build_feasibility:minus",
+        "build_feasibility:plus",
+        "evidence_integrity:minus",
+        "evidence_integrity:plus",
+        "distribution_leverage:minus",
+        "distribution_leverage:plus",
+        "maintenance_burden:minus",
+        "maintenance_burden:plus"
+      ],
+      "type": "one-at-a-time proportional perturbation",
+      "weights_renormalized_in_each_scenario": true
+    }
+  },
+  "notice": "No idea was selected and no scientific conclusion was made. Review qualitative reasons, uncertainty, dissent, evidence, and noncompensatory feasibility/ethics/safety gates.",
+  "results": [
+    {
+      "base_presentation_rank": 2,
+      "base_score": 83.75,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "differentiation": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 20.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        }
+      },
+      "idea_id": "I001",
+      "input_uncertainty_score_interval": [
+        58.75,
+        100.0
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "mixed",
+        "qualitative_review": "Best balance of measurable value and control over the evaluation protocol",
+        "uncertainties": "Whether users will write an equivalence contract at all; Whether side-effecting systems can be scoped honestly"
+      },
+      "weight_sensitivity_rank_range": [
+        2,
+        2
+      ],
+      "weight_sensitivity_score_range": [
+        83.247423,
+        84.223301
+      ]
+    },
+    {
+      "base_presentation_rank": 6,
+      "base_score": 60.0,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "differentiation": {
+          "contribution_to_score": 3.75,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 10.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 0.0,
+          "normalized_interval": [
+            0.0,
+            0.25
+          ],
+          "normalized_score": 0.0,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 20.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        }
+      },
+      "idea_id": "I002",
+      "input_uncertainty_score_interval": [
+        37.5,
+        77.5
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "challenge-located",
+        "qualitative_review": "Urgent problem, weak moat; landscape already contains several scanners",
+        "uncertainties": "Vendor clients may bundle a free scanner; Rule lists decay as attackers reword"
+      },
+      "weight_sensitivity_rank_range": [
+        6,
+        6
+      ],
+      "weight_sensitivity_score_range": [
+        58.762887,
+        61.165049
+      ]
+    },
+    {
+      "base_presentation_rank": 8,
+      "base_score": 57.5,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 3.75,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "differentiation": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        }
+      },
+      "idea_id": "I003",
+      "input_uncertainty_score_interval": [
+        32.5,
+        82.5
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "challenge-located",
+        "qualitative_review": "Clear UX story; kibble and doc-verify already occupy the workflow",
+        "uncertainties": "README prose is not a formal specification; Clean containers are expensive"
+      },
+      "weight_sensitivity_rank_range": [
+        8,
+        8
+      ],
+      "weight_sensitivity_score_range": [
+        56.784841,
+        58.248082
+      ]
+    },
+    {
+      "base_presentation_rank": 11,
+      "base_score": 43.75,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 3.75,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "differentiation": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 2.5,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 3.75,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 10.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        }
+      },
+      "idea_id": "I004",
+      "input_uncertainty_score_interval": [
+        18.75,
+        68.75
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "search-incomplete",
+        "qualitative_review": "Narrow audience; git bisect plus lockfiles already cover much of it",
+        "uncertainties": "Historical package resolution often fails; Slow on large graphs"
+      },
+      "weight_sensitivity_rank_range": [
+        11,
+        11
+      ],
+      "weight_sensitivity_score_range": [
+        43.030691,
+        44.437653
+      ]
+    },
+    {
+      "base_presentation_rank": 3,
+      "base_score": 68.75,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "differentiation": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        }
+      },
+      "idea_id": "I005",
+      "input_uncertainty_score_interval": [
+        43.75,
+        93.75
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "search-incomplete",
+        "qualitative_review": "Cheap and useful but conceptually close to assertion-based testing",
+        "uncertainties": "Hard to define 'wrong' without a contract; May duplicate shell linting"
+      },
+      "weight_sensitivity_rank_range": [
+        3,
+        4
+      ],
+      "weight_sensitivity_score_range": [
+        68.337408,
+        69.181586
+      ]
+    },
+    {
+      "base_presentation_rank": 4,
+      "base_score": 68.75,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        },
+        "differentiation": {
+          "contribution_to_score": 3.75,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        }
+      },
+      "idea_id": "I006",
+      "input_uncertainty_score_interval": [
+        43.75,
+        86.25
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "challenge-located",
+        "qualitative_review": "Easy to build, easy to copy, crowded prior art",
+        "uncertainties": "Unicode scanners already exist; Character detection does not prove intent"
+      },
+      "weight_sensitivity_rank_range": [
+        3,
+        4
+      ],
+      "weight_sensitivity_score_range": [
+        67.787286,
+        69.757033
+      ]
+    },
+    {
+      "base_presentation_rank": 9,
+      "base_score": 50.0,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "differentiation": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 10.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        }
+      },
+      "idea_id": "I007",
+      "input_uncertainty_score_interval": [
+        25.0,
+        75.0
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "search-incomplete",
+        "qualitative_review": "Good narrative, weak falsifiable claim, heavy build requirements",
+        "uncertainties": "Auto-fix can break projects; Scoring invites gaming"
+      },
+      "weight_sensitivity_rank_range": [
+        9,
+        9
+      ],
+      "weight_sensitivity_score_range": [
+        50.0,
+        50.0
+      ]
+    },
+    {
+      "base_presentation_rank": 5,
+      "base_score": 65.0,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "differentiation": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        }
+      },
+      "idea_id": "I008",
+      "input_uncertainty_score_interval": [
+        40.0,
+        90.0
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "search-incomplete",
+        "qualitative_review": "Strong timing fit but depends on a specific agent client's hook surface",
+        "uncertainties": "Git already stores diffs; Intent labels come from the agent and may be wrong"
+      },
+      "weight_sensitivity_rank_range": [
+        5,
+        5
+      ],
+      "weight_sensitivity_score_range": [
+        64.669927,
+        65.345269
+      ]
+    },
+    {
+      "base_presentation_rank": 12,
+      "base_score": 37.5,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 3.75,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "differentiation": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 2.5,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 2.5,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 3.75,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 10.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        }
+      },
+      "idea_id": "I009",
+      "input_uncertainty_score_interval": [
+        12.5,
+        62.5
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "search-incomplete",
+        "qualitative_review": "Broad scope, high integration cost, weak shareable artifact",
+        "uncertainties": "Every system has a bespoke config grammar; Causal attribution is hard"
+      },
+      "weight_sensitivity_rank_range": [
+        12,
+        12
+      ],
+      "weight_sensitivity_score_range": [
+        37.113402,
+        37.864078
+      ]
+    },
+    {
+      "base_presentation_rank": 7,
+      "base_score": 58.75,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "differentiation": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 3.75,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        }
+      },
+      "idea_id": "I010",
+      "input_uncertainty_score_interval": [
+        33.75,
+        83.75
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "challenge-located",
+        "qualitative_review": "Delta debugging is established; issue parsing is the thin new slice",
+        "uncertainties": "Needs a runnable repro and an oracle; C-Reduce-style tools exist"
+      },
+      "weight_sensitivity_rank_range": [
+        7,
+        7
+      ],
+      "weight_sensitivity_score_range": [
+        58.007335,
+        59.526854
+      ]
+    },
+    {
+      "base_presentation_rank": 1,
+      "base_score": 85.0,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        },
+        "differentiation": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 10.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            1.0,
+            2.0
+          ],
+          "raw_score": 1.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.75,
+            1.0
+          ],
+          "normalized_score": 1.0,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            4.0,
+            5.0
+          ],
+          "raw_score": 5.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 15.0,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        }
+      },
+      "idea_id": "I011",
+      "input_uncertainty_score_interval": [
+        60.0,
+        100.0
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "mixed",
+        "qualitative_review": "Adds the missing distribution wedge and a self-hosting proof point",
+        "uncertainties": "Lockfile format may become a maintenance surface; Self-verification can be circular"
+      },
+      "weight_sensitivity_rank_range": [
+        1,
+        1
+      ],
+      "weight_sensitivity_score_range": [
+        84.654731,
+        85.330073
+      ]
+    },
+    {
+      "base_presentation_rank": 10,
+      "base_score": 45.0,
+      "criteria": {
+        "build_feasibility": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "differentiation": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.25,
+            0.75
+          ],
+          "normalized_score": 0.5,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            2.0,
+            4.0
+          ],
+          "raw_score": 3.0
+        },
+        "distribution_leverage": {
+          "contribution_to_score": 2.5,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "evidence_integrity": {
+          "contribution_to_score": 11.25,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            3.0,
+            5.0
+          ],
+          "raw_score": 4.0
+        },
+        "maintenance_burden": {
+          "contribution_to_score": 7.5,
+          "normalized_interval": [
+            0.5,
+            1.0
+          ],
+          "normalized_score": 0.75,
+          "normalized_weight": 0.1,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        },
+        "time_to_value": {
+          "contribution_to_score": 0.0,
+          "normalized_interval": [
+            0.0,
+            0.25
+          ],
+          "normalized_score": 0.0,
+          "normalized_weight": 0.15,
+          "raw_interval": [
+            1.0,
+            2.0
+          ],
+          "raw_score": 1.0
+        },
+        "unmet_need": {
+          "contribution_to_score": 5.0,
+          "normalized_interval": [
+            0.0,
+            0.5
+          ],
+          "normalized_score": 0.25,
+          "normalized_weight": 0.2,
+          "raw_interval": [
+            1.0,
+            3.0
+          ],
+          "raw_score": 2.0
+        }
+      },
+      "idea_id": "I012",
+      "input_uncertainty_score_interval": [
+        23.75,
+        70.0
+      ],
+      "qualitative": {
+        "ethics_status": "not-applicable",
+        "evidence_status": "search-incomplete",
+        "qualitative_review": "Rejected: no runnable artifact, no README-as-product moment",
+        "uncertainties": "Specs without a tool rarely attract users; No instant first run"
+      },
+      "weight_sensitivity_rank_range": [
+        10,
+        10
+      ],
+      "weight_sensitivity_score_range": [
+        44.00978,
+        46.035806
+      ]
+    }
+  ],
+  "schema_version": "1.0",
+  "warnings": [
+    "I005 changes rank from 3 to 4 under one-at-a-time weight perturbations",
+    "I006 changes rank from 3 to 4 under one-at-a-time weight perturbations"
+  ]
+}

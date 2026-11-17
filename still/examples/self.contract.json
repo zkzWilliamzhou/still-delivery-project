@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "name": "self-probe",
+  "adapter": "python",
+  "before": "selfprobe.py::probe",
+  "after": "selfprobe.py::probe",
+  "inputs": {
+    "seed": [[1, 2], ["ab"], [null, 0], {"k": "v"}],
+    "generators": [
+      {"kind": "cases", "values": [[1], [2], ["x"], []], "count": 4}
+    ]
+  },
+  "observe": ["return", "exception", "stdout", "stderr", "exit", "files"],
+  "normalize": [],
+  "allow": [],
+  "budget": {"cases": 8, "timeout_ms": 2000, "seed": 5}
+}

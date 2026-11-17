@@ -1,0 +1,118 @@
+{
+  "cases": [
+    [],
+    [
+      1
+    ],
+    [
+      1,
+      2,
+      3
+    ],
+    [
+      -1,
+      1
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      10,
+      -10,
+      5
+    ],
+    -9,
+    -31
+  ],
+  "contract_digest": "3789ebc7bded1bd2c79a1618a08208798081bc95cc57affa755071f405e0ca86",
+  "envelope": {
+    "adapter": "python",
+    "allow": [],
+    "cases_requested": 8,
+    "cases_run": 8,
+    "generators": [
+      "ints"
+    ],
+    "isolation": "subprocess, scrubbed env, private temp cwd, rlimits, process-group kill",
+    "normalizers_declared": [],
+    "observe": [
+      "return",
+      "exception",
+      "stdout",
+      "stderr",
+      "exit",
+      "files"
+    ],
+    "seed": 7,
+    "timeout_ms": 2000
+  },
+  "schema_version": "1.0",
+  "signatures": [
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": 1,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": 6,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": 5,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": "TypeError: 'int' object is not iterable",
+      "exit": 0,
+      "files": {},
+      "return": null,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": "TypeError: 'int' object is not iterable",
+      "exit": 0,
+      "files": {},
+      "return": null,
+      "stderr": "",
+      "stdout": ""
+    }
+  ]
+}

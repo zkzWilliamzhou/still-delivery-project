@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "criteria": [
+    {
+      "name": "unmet_need",
+      "description": "Frequency and severity of the pain for a broad developer audience",
+      "weight": 4,
+      "direction": "higher",
+      "minimum": 1,
+      "maximum": 5
+    },
+    {
+      "name": "differentiation",
+      "description": "Defensible separation from prior art located in the bounded landscape search",
+      "weight": 3,
+      "direction": "higher",
+      "minimum": 1,
+      "maximum": 5
+    },
+    {
+      "name": "time_to_value",
+      "description": "Minutes from install to a first result a developer would act on",
+      "weight": 3,
+      "direction": "higher",
+      "minimum": 1,
+      "maximum": 5
+    },
+    {
+      "name": "build_feasibility",
+      "description": "Correctly buildable in one sandbox with the Python standard library",
+      "weight": 3,
+      "direction": "higher",
+      "minimum": 1,
+      "maximum": 5
+    },
+    {
+      "name": "evidence_integrity",
+      "description": "The tool can state its own evidence boundary without overclaiming proof",
+      "weight": 3,
+      "direction": "higher",
+      "minimum": 1,
+      "maximum": 5
+    },
+    {
+      "name": "distribution_leverage",
+      "description": "Shareable output, runtime neutrality, README-as-product, trend alignment",
+      "weight": 2,
+      "direction": "higher",
+      "minimum": 1,
+      "maximum": 5
+    },
+    {
+      "name": "maintenance_burden",
+      "description": "Ongoing churn from fast-moving vendor APIs, formats, or adversarial rule lists",
+      "weight": 2,
+      "direction": "lower",
+      "minimum": 1,
+      "maximum": 5
+    }
+  ]
+}

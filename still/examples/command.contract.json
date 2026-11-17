@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "name": "echo-cli",
+  "adapter": "command",
+  "before": "echo_v1.py",
+  "after": "echo_v2.py",
+  "inputs": {
+    "seed": ["abc", [1, 2, 3], {"a": 1}, 7, null, ""],
+    "generators": [
+      {"kind": "strings", "alphabet": "ab01 ", "min_len": 0, "max_len": 6, "count": 20}
+    ]
+  },
+  "observe": ["stdout", "stderr", "exit", "files"],
+  "normalize": [],
+  "allow": [],
+  "budget": {"cases": 26, "timeout_ms": 2000, "seed": 11}
+}

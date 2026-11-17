@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "name": "sum-clean-refactor",
+  "adapter": "python",
+  "before": "sum_v1.py::total",
+  "after": "sum_v2.py::total",
+  "inputs": {
+    "seed": [[], [1], [1, 2, 3], [-1, 1], [0, 0, 0], [10, -10, 5]],
+    "generators": [
+      {"kind": "ints", "min": -50, "max": 50, "count": 30}
+    ]
+  },
+  "observe": ["return", "exception", "stdout", "stderr", "exit", "files"],
+  "normalize": [],
+  "allow": [],
+  "budget": {"cases": 40, "timeout_ms": 2000, "seed": 7}
+}

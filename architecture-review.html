@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>still - architecture review, 2026-11-13</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root { --ink:#e7e9ee; --muted:#9aa3b2; --bg:#0d1117; --panel:#151b24; --line:#2a3340; --accent:#6ee7b7; --warn:#fbbf24; --bad:#f87171; }
+  body { background:var(--bg); color:var(--ink); font:15px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; margin:0; padding:40px 20px 90px; }
+  .wrap { max-width:1080px; margin:0 auto; }
+  h1 { font-size:34px; letter-spacing:-.02em; margin:0 0 6px; }
+  h2 { font-size:22px; margin:42px 0 14px; letter-spacing:-.01em; }
+  h3 { font-size:17px; margin:0 0 10px; }
+  p { color:var(--muted); margin:8px 0; }
+  .lede { font-size:16px; max-width:760px; }
+  .meta { color:var(--muted); font-size:13px; margin-bottom:28px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:22px; margin:18px 0; }
+  .row { display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap; }
+  .badge { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border-radius:999px; border:1px solid var(--line); }
+  .strong { color:#052e22; background:var(--accent); border-color:var(--accent); }
+  .worth { color:#3b2a00; background:var(--warn); border-color:var(--warn); }
+  .spec { color:#3b0d0d; background:var(--bad); border-color:var(--bad); }
+  .label { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.09em; margin-top:14px; }
+  .files { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; color:#a5d6ff; }
+  ul { color:var(--muted); padding-left:20px; }
+  li { margin:5px 0; }
+  .viz { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+  .box { background:#10161e; border:1px solid var(--line); border-radius:10px; padding:14px; }
+  .box h4 { margin:0 0 10px; font-size:12px; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); }
+  .node { border:1px solid #34405466; border-radius:8px; padding:8px 10px; margin:6px 0; background:#182130; font-size:13px; }
+  .node b { color:var(--accent); font-weight:600; }
+  .node.dup { border-color:#f8717155; }
+  .node.dead { opacity:.55; text-decoration:line-through; }
+  .arrow { text-align:center; color:var(--muted); font-size:20px; margin:2px 0; }
+  .mermaid { background:#10161e; border:1px solid var(--line); border-radius:10px; padding:10px; margin-top:14px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; margin-top:12px; }
+  th,td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); color:var(--muted); }
+  th { color:var(--ink); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+  .gate { border-left:3px solid var(--accent); padding-left:14px; margin:14px 0; color:var(--muted); }
+  code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; color:#a5d6ff; font-size:13px; }
+  .top { border:1px solid var(--accent); background:linear-gradient(180deg,#132a22,#151b24); }
+  .foot { color:var(--muted); font-size:12px; margin-top:40px; border-top:1px solid var(--line); padding-top:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>still: architecture review</h1>
+<div class="meta">2026-11-13 &middot; Scope: recently changed hot spots in <code>src/still/</code> &middot; Vocabulary: module, interface, depth, seam, adapter, leverage, locality</div>
+<p class="lede">This review surfaces architectural friction and proposes deepening opportunities: refactors that turn shallow modules into deep ones. The aim is testability and AI-navigability. It follows the <code>improve-codebase-architecture</code> procedure: scope to hot spots, read <code>GLOSSARY.md</code> and ADRs, apply the deletion test, present ranked candidates, then grill the chosen one.</p>
+
+<h2>Scope before the scan</h2>
+<div class="card">
+  <p><b>Hot spots.</b> The baseline commit is the whole tree, so the scan weights the modules that carry the most change pressure: <code>cli.py</code> (320 lines, three orchestration loops), <code>execution.py</code> (325 lines, target resolution plus case execution), <code>equivalence.py</code> (171 lines, mixed concerns), and <code>report.py</code> (four output formats).</p>
+  <p><b>Domain language.</b> <code>GLOSSARY.md</code> defines contract, case, observation, signature, divergence, counterexample, evidence envelope, behavior lockfile, adapter and verdict. <code>CONTEXT.md</code> and <a href="still/docs/adr/0001-evidence-not-proof.md">ADR-0001</a> fix the rule that a verdict describes a bounded corpus. <b>ADR conflict:</b> no candidate reopens ADR-0001; every candidate keeps the disclaimer in the report.</p>
+  <p><b>Deletion test.</b> For each suspected shallow unit I asked: would deleting it concentrate complexity, or just move it? A "yes, concentrates" is the signal wanted. A utility whose deletion would duplicate the same three lines in four callers is not a deepening target; it stays.</p>
+</div>
+
+<h2>Ranked candidates</h2>
+
+<div class="card">
+  <div class="row"><h3>C1 &mdash; Deepen the claim module behind one interface</h3><span class="badge strong">Strong</span></div>
+  <div class="label">Files</div>
+  <div class="files">src/still/cli.py, src/still/equivalence.py, src/still/execution.py, src/still/evidence.py (new), src/still/_worker.py</div>
+  <div class="label">Problem</div>
+  <p>Two shallow units split one concept. <code>equivalence.signature_from_observation</code> repeats <code>execution.observation_signature</code> field-for-field, so the "select declared observables" rule has two owners with no locality. The verdict rule and the evidence envelope construction sit as private helpers inside <code>cli.py</code>, where three orchestration loops each reconstruct them. <code>Observation.from_dict</code> is an unused interface, and <code>_worker.py</code> keeps a dead <code>os.getpid()</code> line. Each unit has an interface nearly as wide as its implementation.</p>
+  <div class="label">Solution</div>
+  <p>Fold the duplicate signature selection into <code>execution.observation_signature</code>, the one place where <code>Observation</code> lives. Introduce <code>evidence.py</code> as a deep module owning the whole claim: <code>build_envelope(contract, cases, attempted)</code> and <code>classify(divergences, unverified)</code>. The three orchestration loops become thin adapters over that seam. Delete the unused interface and the dead line. No declared observable, verdict string, normalizer rule or report field changes.</p>
+  <div class="label">Benefits</div>
+  <ul>
+    <li><b>Locality:</b> one module owns what a verdict covers; a change to the evidence envelope has one edit site instead of three loops.</li>
+    <li><b>Leverage:</b> <code>check</code>, <code>lock</code> and <code>replay</code> all consume the same deep interface, so a new output format or a new observable needs no orchestration edit.</li>
+    <li><b>Depth:</b> a narrow interface (<code>build_envelope</code>, <code>classify</code>) hides the full envelope and verdict semantics; deleting <code>evidence.py</code> would concentrate that complexity back into three loops.</li>
+    <li><b>Testability:</b> the claim module is pure and directly testable without subprocesses.</li>
+  </ul>
+  <div class="viz">
+    <div class="box"><h4>Before</h4>
+      <div class="node"><b>cli.py :: run_check</b><br>local <code>envelope()</code> + <code>_verdict()</code></div>
+      <div class="node"><b>cli.py :: run_lock</b><br>rebuilds envelope inline</div>
+      <div class="node"><b>cli.py :: run_replay</b><br>rebuilds envelope inline</div>
+      <div class="arrow">&darr; two owners of one rule &darr;</div>
+      <div class="node dup"><b>equivalence.signature_from_observation</b><br>duplicate of execution.observation_signature</div>
+      <div class="node dead"><b>execution.Observation.from_dict</b><br>unused interface</div>
+    </div>
+    <div class="box"><h4>After</h4>
+      <div class="node"><b>evidence.py</b><br>build_envelope() &middot; classify() &middot; cap</div>
+      <div class="arrow">&uarr; thin adapters &uarr;</div>
+      <div class="node"><b>cli.py</b><br>check / lock / replay loops only</div>
+      <div class="node"><b>execution.py</b><br>observation_signature() single owner</div>
+      <div class="node"><b>equivalence.py</b><br>compare / normalize / minimize</div>
+    </div>
+  </div>
+  <div class="mermaid">
+flowchart LR
+  A[cli check] --> E[evidence module]
+  B[cli lock] --> E
+  C[cli replay] --> E
+  E --> R[report module]
+  X[execution observation_signature] --> A
+  X --> C
+  Q[equivalence compare] --> A
+  Q --> C
+  </div>
+</div>
+
+<div class="card">
+  <div class="row"><h3>C2 &mdash; Deepen the case-execution adapter</h3><span class="badge worth">Worth exploring</span></div>
+  <div class="label">Files</div>
+  <div class="files">src/still/cli.py, src/still/execution.py</div>
+  <div class="label">Problem</div>
+  <p><code>run_check</code>, <code>run_lock</code> and <code>run_replay</code> each repeat the same loop: iterate cases, catch <code>ExecutionError</code>, prefix an unverified reason, track fired normalizers, cap divergences. Three copies of one rule.</p>
+  <div class="label">Solution</div>
+  <p>A <code>run_corpus</code> deep module with one interface returning a structured <code>CorpusResult</code>. Risk: <code>lock</code> needs only the before side, <code>replay</code> needs only the after side, so a single function would need a wide options interface and would become shallow itself.</p>
+  <div class="label">Benefits</div>
+  <p>High leverage on duplication, but the interface cost is real. Deferred until the <code>still</code> adapter count grows beyond two. Deletion test says "just moves it" today.</p>
+  <div class="viz">
+    <div class="box"><h4>Before</h4><div class="node">loop in check</div><div class="node">loop in lock</div><div class="node">loop in replay</div></div>
+    <div class="box"><h4>After (deferred)</h4><div class="node"><b>run_corpus()</b><br>one deep loop</div><div class="node">three thin adapters</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row"><h3>C3 &mdash; Split report.py into four formatter modules</h3><span class="badge spec">Speculative</span></div>
+  <div class="label">Files</div>
+  <div class="files">src/still/report.py</div>
+  <div class="label">Problem</div>
+  <p>Four renderers in one file can look wide. <b>Deletion test says no:</b> deleting any renderer would move four small functions into four new shallow modules with interfaces as wide as their bodies. <code>report.py</code> already has a narrow interface (<code>render</code>) over a real implementation, which is depth, not shallowness.</p>
+  <div class="label">Solution</div>
+  <p>Do not do this. Recorded so a future explorer does not re-suggest it. No ADR needed: the reason is self-evident from the deletion test.</p>
+</div>
+
+<h2>Top recommendation</h2>
+<div class="card top">
+  <p><b>Tackle C1 first.</b> It has the strongest locality gain, the narrowest interface, and the lowest risk of changing function. C2 waits for a third adapter. C3 is rejected.</p>
+  <p><b>Grilling loop (design tree, frontier emptied):</b></p>
+  <ul>
+    <li><b>Constraints:</b> must keep all four verdict strings, all six observable fields, every declared normalizer name, and every report key unchanged. Recommended answer: yes. Accepted.</li>
+    <li><b>Dependencies:</b> <code>evidence.py</code> may import <code>model.Contract</code> and <code>report</code> verdict constants; it must not import <code>execution</code>, keeping the seam clean. Accepted.</li>
+    <li><b>What sits behind the seam:</b> the envelope shape, the verdict classification and the divergence cap. Nothing else. Accepted.</li>
+    <li><b>What tests survive:</b> all 74 tests, the 17 CLI contract checks, seven deterministic report hashes, and two behavior lockfile replays with <code>--strict</code>. Accepted.</li>
+    <li><b>Hard gate from the request:</b> no function may change. A lockfile recorded before the edit and replayed after it, plus byte-for-byte report hashes, is the acceptance test. Accepted. Self-verification is circular, so the external fixtures and the full suite sit alongside it.</li>
+  </ul>
+  <div class="gate"><b>Conflicts with ADR-0001?</b> None. The disclaimer stays in <code>report.py</code> and in every output format.</div>
+</div>
+
+<h2>Acceptance evidence</h2>
+<div class="card">
+<table>
+  <tr><th>Gate</th><th>Command</th><th>Required result</th></tr>
+  <tr><td>Lockfiles recorded before the edit</td><td><code>scripts/verify_function_preservation.py record</code></td><td>7 checks + 2 lockfiles stored</td></tr>
+  <tr><td>Function preservation</td><td><code>scripts/verify_function_preservation.py verify</code></td><td>7 identical report hashes, 2 clean strict replays</td></tr>
+  <tr><td>Whole suite</td><td><code>python -m pytest tests -q</code></td><td>0 failures</td></tr>
+  <tr><td>Static and security</td><td><code>ruff</code>, <code>mypy</code>, <code>bandit</code></td><td>0 findings</td></tr>
+  <tr><td>CLI contract</td><td><code>scripts/cli_matrix.py</code></td><td>17/17</td></tr>
+</table>
+  <div class="gate"><b>Result after applying C1:</b> all five gates passed. Seven report hashes were byte-identical to the pre-refactor baseline, both strict lockfile replays were clean, 74 tests passed, ruff/mypy/bandit returned zero findings, and the CLI contract matrix stayed 17/17. C2 was deferred (one adapter would make the seam hypothetical), C3 was rejected by the deletion test. The grilling loop ran inline under a standing instruction to finish without pausing for a candidate choice.</div>
+</div>
+
+<div class="foot">Generated outside the repository at /data/workspace/architecture-review.html so nothing lands in the repo. Mermaid and Tailwind load from a CDN when online; the before/after diagrams above are hand-built HTML and work offline.</div>
+
+</div>
+<script>if (window.mermaid) { mermaid.initialize({startOnLoad:true, theme:'dark'}); }</script>
+</body>
+</html>

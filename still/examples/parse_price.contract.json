@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "name": "parse-price",
+  "adapter": "python",
+  "before": "legacy.py::parse_price",
+  "after": "modern.py::parse_price",
+  "inputs": {
+    "seed": ["12.50", "$12.50", "free", "", 0, -1, "axb", "xxx"],
+    "generators": [
+      {"kind": "strings", "alphabet": "abcx012$.- ", "min_len": 0, "max_len": 8, "count": 60}
+    ]
+  },
+  "observe": ["return", "exception", "stdout", "stderr", "exit", "files"],
+  "normalize": [],
+  "allow": [],
+  "budget": {"cases": 80, "timeout_ms": 2000, "seed": 1337}
+}

@@ -1,0 +1,213 @@
+{
+  "cases": [
+    [
+      1,
+      2
+    ],
+    [
+      "ab"
+    ],
+    [
+      null,
+      0
+    ],
+    {
+      "k": "v"
+    },
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      "x"
+    ],
+    []
+  ],
+  "contract_digest": "dcf97ad8b6d14d981002ae4c0da5fab65bbc9b33e1ad56343efd43d1464fdc75",
+  "envelope": {
+    "adapter": "python",
+    "allow": [],
+    "cases_requested": 8,
+    "cases_run": 8,
+    "generators": [
+      "cases"
+    ],
+    "isolation": "subprocess, scrubbed env, private temp cwd, rlimits, process-group kill",
+    "normalizers_declared": [],
+    "observe": [
+      "return",
+      "exception",
+      "stdout",
+      "stderr",
+      "exit",
+      "files"
+    ],
+    "seed": 5,
+    "timeout_ms": 2000
+  },
+  "schema_version": "1.0",
+  "signatures": [
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": {
+        "count": 7,
+        "diffs": [],
+        "equivalent": true,
+        "labels": [
+          "1",
+          "2",
+          "\"b\"",
+          "\"1a\""
+        ],
+        "normalizers": [],
+        "report_verdict": "NO_DIVERGENCE_FOUND"
+      },
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": {
+        "count": 6,
+        "diffs": [],
+        "equivalent": true,
+        "labels": [
+          "\"ab\"",
+          "\"b\"",
+          "\"1a\"",
+          "\"a10b\""
+        ],
+        "normalizers": [],
+        "report_verdict": "NO_DIVERGENCE_FOUND"
+      },
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": {
+        "count": 7,
+        "diffs": [],
+        "equivalent": true,
+        "labels": [
+          "null",
+          "0",
+          "\"b\"",
+          "\"1a\""
+        ],
+        "normalizers": [],
+        "report_verdict": "NO_DIVERGENCE_FOUND"
+      },
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": {
+        "count": 6,
+        "diffs": [],
+        "equivalent": true,
+        "labels": [
+          "{\"k\":\"v\"}",
+          "\"b\"",
+          "\"1a\"",
+          "\"a10b\""
+        ],
+        "normalizers": [],
+        "report_verdict": "NO_DIVERGENCE_FOUND"
+      },
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": {
+        "count": 6,
+        "diffs": [],
+        "equivalent": true,
+        "labels": [
+          "1",
+          "\"b\"",
+          "\"1a\"",
+          "\"a10b\""
+        ],
+        "normalizers": [],
+        "report_verdict": "NO_DIVERGENCE_FOUND"
+      },
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": {
+        "count": 6,
+        "diffs": [],
+        "equivalent": true,
+        "labels": [
+          "2",
+          "\"b\"",
+          "\"1a\"",
+          "\"a10b\""
+        ],
+        "normalizers": [],
+        "report_verdict": "NO_DIVERGENCE_FOUND"
+      },
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": {
+        "count": 6,
+        "diffs": [],
+        "equivalent": true,
+        "labels": [
+          "\"x\"",
+          "\"b\"",
+          "\"1a\"",
+          "\"a10b\""
+        ],
+        "normalizers": [],
+        "report_verdict": "NO_DIVERGENCE_FOUND"
+      },
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "exception": null,
+      "exit": 0,
+      "files": {},
+      "return": {
+        "count": 5,
+        "diffs": [],
+        "equivalent": true,
+        "labels": [
+          "\"b\"",
+          "\"1a\"",
+          "\"a10b\"",
+          "\"1\""
+        ],
+        "normalizers": [],
+        "report_verdict": "NO_DIVERGENCE_FOUND"
+      },
+      "stderr": "",
+      "stdout": ""
+    }
+  ]
+}

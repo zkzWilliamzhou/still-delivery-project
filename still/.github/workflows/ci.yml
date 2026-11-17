@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install checkers
+        run: python -m pip install -q ruff mypy pytest bandit
+      - name: Lint
+        run: python -m ruff check src tests examples scripts
+      - name: Types
+        run: python -m mypy src/still
+      - name: Security scan
+        run: python -m bandit -q -r src/still
+      - name: Tests
+        run: python -m pytest tests
+      - name: Divergence demo
+        run: |
+          PYTHONPATH=src python3 -m still check examples/parse_price.contract.json --cases 12 --no-minimize || test $? -eq 1
+      - name: Clean refactor demo
+        run: PYTHONPATH=src python3 -m still check examples/clean.contract.json --cases 10
+      - name: CLI contract matrix
+        run: PYTHONPATH=src python3 scripts/cli_matrix.py

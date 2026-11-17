@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+*.behavior.lock.json
+.proposed.json
+
+# .golden/ is deliberately committed: it is the pre-refactor baseline that
+# scripts/verify_function_preservation.py replays to prove no function changed.
